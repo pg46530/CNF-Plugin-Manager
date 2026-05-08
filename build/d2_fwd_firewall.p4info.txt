@@ -1,0 +1,192 @@
+pkg_info {
+  arch: "v1model"
+}
+tables {
+  preamble {
+    id: 47604142
+    name: "MyIngress.ipv4Lpm"
+    alias: "ipv4Lpm"
+  }
+  match_fields {
+    id: 1
+    name: "hdr.ipv4.dstAddr"
+    bitwidth: 32
+    match_type: LPM
+  }
+  action_refs {
+    id: 29683729
+  }
+  action_refs {
+    id: 25652968
+  }
+  size: 256
+}
+tables {
+  preamble {
+    id: 50323762
+    name: "MyIngress.internalMacLookup"
+    alias: "internalMacLookup"
+  }
+  match_fields {
+    id: 1
+    name: "std_meta.egress_spec"
+    bitwidth: 9
+    match_type: EXACT
+  }
+  action_refs {
+    id: 26407428
+  }
+  action_refs {
+    id: 25652968
+  }
+  size: 256
+}
+tables {
+  preamble {
+    id: 44247417
+    name: "MyIngress.arpRoute"
+    alias: "arpRoute"
+  }
+  match_fields {
+    id: 1
+    name: "hdr.arp.tpa"
+    bitwidth: 32
+    match_type: LPM
+  }
+  action_refs {
+    id: 17916951
+  }
+  action_refs {
+    id: 25652968
+  }
+  size: 16
+}
+tables {
+  preamble {
+    id: 38578098
+    name: "MyIngress.dhcpRoute"
+    alias: "dhcpRoute"
+  }
+  match_fields {
+    id: 1
+    name: "hdr.ipv4.dstAddr"
+    bitwidth: 32
+    match_type: LPM
+  }
+  action_refs {
+    id: 17916951
+  }
+  action_refs {
+    id: 25652968
+  }
+  size: 16
+}
+actions {
+  preamble {
+    id: 25652968
+    name: "MyIngress.drop"
+    alias: "drop"
+  }
+}
+actions {
+  preamble {
+    id: 24496645
+    name: "MyIngress.computeHashes"
+    alias: "computeHashes"
+  }
+}
+actions {
+  preamble {
+    id: 29683729
+    name: "MyIngress.forward"
+    alias: "forward"
+  }
+  params {
+    id: 1
+    name: "egressPort"
+    bitwidth: 9
+  }
+  params {
+    id: 2
+    name: "nextHopMac"
+    bitwidth: 48
+  }
+}
+actions {
+  preamble {
+    id: 26407428
+    name: "MyIngress.rewriteMacs"
+    alias: "rewriteMacs"
+  }
+  params {
+    id: 1
+    name: "srcMac"
+    bitwidth: 48
+  }
+}
+actions {
+  preamble {
+    id: 17916951
+    name: "MyIngress.forward_to_port"
+    alias: "forward_to_port"
+  }
+  params {
+    id: 1
+    name: "port"
+    bitwidth: 9
+  }
+}
+counters {
+  preamble {
+    id: 307618268
+    name: "MyIngress.forwardedCounter"
+    alias: "forwardedCounter"
+  }
+  spec {
+    unit: BOTH
+  }
+  size: 1
+}
+counters {
+  preamble {
+    id: 317253132
+    name: "MyIngress.droppedCounter"
+    alias: "droppedCounter"
+  }
+  spec {
+    unit: BOTH
+  }
+  size: 1
+}
+registers {
+  preamble {
+    id: 383287264
+    name: "MyIngress.bloomFilter1"
+    alias: "bloomFilter1"
+  }
+  type_spec {
+    bitstring {
+      bit {
+        bitwidth: 1
+      }
+    }
+  }
+  size: 4096
+}
+registers {
+  preamble {
+    id: 372413062
+    name: "MyIngress.bloomFilter2"
+    alias: "bloomFilter2"
+  }
+  type_spec {
+    bitstring {
+      bit {
+        bitwidth: 1
+      }
+    }
+  }
+  size: 4096
+}
+type_info {
+}

@@ -1,0 +1,79 @@
+pkg_info {
+  arch: "v1model"
+}
+tables {
+  preamble {
+    id: 39157715
+    name: "MyIngress.sMacLookup"
+    alias: "sMacLookup"
+  }
+  match_fields {
+    id: 1
+    name: "hdr.eth.srcAddr"
+    bitwidth: 48
+    match_type: EXACT
+  }
+  action_refs {
+    id: 31123019
+  }
+  action_refs {
+    id: 21257015
+  }
+  size: 512
+}
+tables {
+  preamble {
+    id: 46852981
+    name: "MyIngress.dMacLookup"
+    alias: "dMacLookup"
+  }
+  match_fields {
+    id: 1
+    name: "hdr.eth.dstAddr"
+    bitwidth: 48
+    match_type: EXACT
+  }
+  action_refs {
+    id: 29683729
+  }
+  action_refs {
+    id: 21257015
+  }
+  size: 512
+}
+actions {
+  preamble {
+    id: 21257015
+    name: "NoAction"
+    alias: "NoAction"
+    annotations: "@noWarn(\"unused\")"
+  }
+}
+actions {
+  preamble {
+    id: 31123019
+    name: "MyIngress.clone_to_cpu"
+    alias: "clone_to_cpu"
+  }
+}
+actions {
+  preamble {
+    id: 29683729
+    name: "MyIngress.forward"
+    alias: "forward"
+  }
+  params {
+    id: 1
+    name: "egress_port"
+    bitwidth: 9
+  }
+}
+actions {
+  preamble {
+    id: 20880156
+    name: "MyEgress.drop"
+    alias: "drop"
+  }
+}
+type_info {
+}
