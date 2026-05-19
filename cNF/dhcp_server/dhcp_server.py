@@ -81,7 +81,6 @@ def build_pool(config):
                 if ip in available_ips:
                     available_ips.remove(ip)
                 static_reservations[mac] = ip
-                reserved_ips.add(ip)
     
     pool = {
         "available": available_ips,
@@ -171,6 +170,9 @@ def handle_dhcp(packet, interface, config, pool, offered_pool):
             )
             resp /= DHCP(options=[
                 ("message-type", 2),
+                ("subnet_mask", subnet_mask),
+                ("router", gateway),
+                ("name_server", dns),
                 ("lease_time", config["lease_time"]),
                 ("server_id", config["server_ip"]),
                 "end"
@@ -232,6 +234,9 @@ def handle_dhcp(packet, interface, config, pool, offered_pool):
                 )
                 resp /= DHCP(options=[
                     ("message-type", 5),
+                    ("subnet_mask", subnet_mask),
+                    ("router", gateway),
+                    ("name_server", dns),
                     ("lease_time", config["lease_time"]),
                     ("server_id", config["server_ip"]),
                     "end"

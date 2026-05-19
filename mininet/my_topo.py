@@ -109,6 +109,7 @@ def main():
         host.cmd('mount --bind /dev/null /etc/dhcp/dhclient-exit-hooks.d/resolved')
         host.cmd(f"rm -f mininet/run-time/dhclient-{h}.leases")
         host.cmd(f"touch mininet/run-time/dhclient-{h}.leases")
+        host.cmd("ip addr flush dev eth0")
         host.cmd(f"dhclient -lf mininet/run-time/dhclient-{h}.leases eth0 &")
 
   

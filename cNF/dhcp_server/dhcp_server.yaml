@@ -14,4 +14,10 @@ lease_time: 3600
 
 # static reservations — these IPs are locked to a specific MAC, never offered to other clients
 # note: network address, broadcast, server IP and router are always reserved automatically
-reservations: []
+reservations:
+  - mac: "aa:00:00:00:02:04"
+    ip: "10.0.2.4"
+  - mac: "aa:00:00:00:02:05"
+    ip: "10.0.2.5"
+  - mac: "aa:00:00:00:02:06"
+    ip: "10.0.2.6"
