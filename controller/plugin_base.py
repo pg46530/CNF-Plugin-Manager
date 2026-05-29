@@ -86,10 +86,15 @@ class PluginBase(ABC):
     ENTRY_ADDED   = 'entry_added'   # a table entry appeared that was not there before
     ENTRY_REMOVED = 'entry_removed' # a single table entry disappeared from the switch
     STATE_RESET   = 'state_reset'   # all table entries on a device were wiped at once
+    CNF_TELEMETRY = 'cnf_telemetry' # emitted by cnf_control after each telemetry poll
+    CNF_CONFIG    = 'cnf_config'    # consumed by cnf_control to apply config to a CNF
+    CNF_DOWN      = 'cnf_down'      # emitted by cnf_control when a CNF becomes unreachable
+    CNF_UP        = 'cnf_up'        # emitted by cnf_control when a CNF recovers
 
     # Full set — used by the controller to reject unknown event names early.
     EVENTS = frozenset({PACKET_IN, DIGEST, MAC_LEARNED,
-                        ENTRY_ADDED, ENTRY_REMOVED, STATE_RESET})
+                        ENTRY_ADDED, ENTRY_REMOVED, STATE_RESET,
+                        CNF_TELEMETRY, CNF_CONFIG, CNF_DOWN, CNF_UP})
 
     @property
     def logger(self):

@@ -1,0 +1,15 @@
+# CNF registry — list of CNFs managed by the cnf_control plugin.
+# The controller will poll /telemetry and apply /config to each entry.
+
+poll_interval: 10
+
+cnfs:
+  - name: arp_proxy
+    url: http://192.168.100.2:8081
+
+  - name: dhcp_server
+    url: http://192.168.100.6:8080
+
+dhcp_settings:
+  pool_warn_threshold: 2   # trigger pool pressure with only 2 leases for demo
+  lease_time_reduced: 300
